@@ -1,0 +1,53 @@
+@import ./_styles
+
+
+.expense-list
+  margin-bottom: 1rem
+  font-weight: 600
+
+  .expense
+    border-bottom: 2px solid $secondary-color
+    padding-bottom: 1rem
+
+  .expense-concept
+    flex: 1
+    display: flex
+    align-items: center
+
+  .expense-amount
+    background-color: $blue_strong
+    display: flex
+    color: $white
+    align-items: center
+    justify-content: center
+    height: 3rem
+
+  .expense-amount::before
+    content: '$\00a0'
+
+.remainig-board
+  font-weight: 600
+  padding: 0
+
+  span
+    font-weight: 100
+
+  span::before
+    content:'$\00a0'
+      
+  .budget
+    height: 2.5rem
+    display: flex
+    align-items: center
+    padding: 0.6rem
+    background-color: $blue-light
+    box-shadow: 5px 5px 5px $secondary-color
+    
+    &.healthy
+      background-color: $healthy-color
+
+    &.warning
+      background-color: $warning-color
+
+    &.danger
+      background-color: $danger-color
