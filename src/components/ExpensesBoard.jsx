@@ -4,11 +4,7 @@ import Expense from './Expense';
 
 import '../resources/sass/remainingBoard.sass';
 
-const RemainingBoard = ({expenseList}) => {
-
-
-
-
+const RemainingBoard = ({expenseList, deleteExpense}) => {
 
 
   return (
@@ -19,6 +15,7 @@ const RemainingBoard = ({expenseList}) => {
           <Expense
             key={expense.id}
             expense={expense}
+            deleteExpense ={deleteExpense}
           />
         ))}
       </div>

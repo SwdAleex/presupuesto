@@ -8,6 +8,19 @@
   .expense
     border-bottom: 2px solid $secondary-color
     padding-bottom: 1rem
+    flex: 1
+ 
+
+  .expense-delete
+    padding-bottom: 1rem
+    padding-right: 0.5rem
+    border-bottom: 2px solid $secondary-color
+    align-items: center
+    color: $danger-color
+
+    :hover
+      color: $danger-strong
+  
 
   .expense-concept
     flex: 1
@@ -22,8 +35,8 @@
     justify-content: center
     height: 3rem
 
-  .expense-amount::before
-    content: '$\00a0'
+    &::before
+      content: '$\00a0'
 
 .remainig-board
   font-weight: 600
@@ -32,8 +45,8 @@
   span
     font-weight: 100
 
-  span::before
-    content:'$\00a0'
+    &::before
+      content:'$\00a0'
       
   .budget
     height: 2.5rem
