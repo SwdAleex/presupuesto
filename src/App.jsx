@@ -7,6 +7,7 @@ import BudgetBoard from './components/BudgetBoard';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './resources/sass/app.sass';
+import { showCloseButton } from '../src/resources/js/helpers';
 
 function App() {
   // GETTING EXPENSELIST FROM LOCAL STORAGE
@@ -50,16 +51,9 @@ function App() {
       'initialRemainingBudget',
       JSON.stringify(remainingBudget)
     );
-  }, [
-    expenseList,
-    initialExpenseList,
-    remainingBudget,
-    initialRemainingBudget,
-  ]);
 
-  // USEEFFECT TO CALCULATE THE REMAINING BUDGET
+    // USEEFFECT TO CALCULATE THE REMAINING BUDGET
 
-  useEffect(() => {
     if (showExpenseList) {
       // ADDING EXPENSE TO THE LIST
 
@@ -73,12 +67,22 @@ function App() {
 
       setShowExpenseList(false);
     }
-  }, [expense, showExpenseList, expenseList, remainingBudget]);
+
+    if (expenseList.length === 0 && remainingBudget === 0) {
+      setShowWelcome(true);
+    }
+  }, [
+    expenseList,
+    initialExpenseList,
+    remainingBudget,
+    initialRemainingBudget,
+    expense,
+    showExpenseList,
+  ]);
 
   // DELETE EXPENSE FROM EXPENSELIST
 
   const deleteExpense = (id) => {
-    console.log(id);
     setExpenseList(expenseList.filter((expense) => expense.id !== id));
 
     // ADDING AMOUNT FROM EXPENSE DELETED TO REMAININGBUDGET
@@ -86,6 +90,12 @@ function App() {
     let expenseDeleted = expenseList.find((expense) => expense.id === id);
     let newRemainingBudget = remainingBudget + expenseDeleted.amount;
     setRemainingBudget(newRemainingBudget);
+  };
+
+  const clearList = () => {
+    setRemainingBudget(0);
+    setBudget(0);
+    setExpenseList([]);
   };
 
   return (
@@ -102,18 +112,33 @@ function App() {
           />
         ) : (
           <section className='row justify-content-center'>
-            <div className='calculator-section col-12 col-lg-11 d-flex justify-content-between'>
-              <div className='col-6 col-md-5'>
+            <div className='calculator-section col-12 col-lg-11 d-flex flex-wrap justify-content-between'>
+              <div className='col-12 col-md-5'>
                 <ExpenseForm
                   setExpense={setExpense}
                   setShowExpenseList={setShowExpenseList}
                 />
               </div>
-              <div className='col-6 d-flex flex-column'>
-                <ExpensesBoard
-                  expenseList={expenseList}
-                  deleteExpense={deleteExpense}
-                />
+              <div className='col-12 col-md-6 d-flex flex-column'>
+                <h3>
+                  {expenseList.length > 0
+                    ? 'Lista de gastos'
+                    : 'No hay ningún gasto en la lista'}
+                  <span>
+                    <i
+                      className={showCloseButton(expenseList)}
+                      alt='Borrar Lista'
+                      onClick={clearList}
+                    ></i>
+                  </span>
+                </h3>
+
+                {expenseList.length !== 0 ? (
+                  <ExpensesBoard
+                    expenseList={expenseList}
+                    deleteExpense={deleteExpense}
+                  />
+                ) : null}
                 <BudgetBoard
                   budget={budget}
                   remainingBudget={remainingBudget}

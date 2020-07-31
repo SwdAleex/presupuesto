@@ -48,7 +48,7 @@ const ExpenseForm = ({setExpense, setShowExpenseList}) => {
       <h3>Agrega tus gastos</h3>
       {error ? <Error errorMessage='Todos los campos son necesarios' /> : null}
       <form
-        className='form-expense-add d-flex flex-column'
+        className='form-expense-add d-flex flex-column mb-3'
         onSubmit={saveExpense}
       >
         <div className='d-flex flex-column'>
